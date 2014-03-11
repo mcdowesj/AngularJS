@@ -1,8 +1,8 @@
 <!doctype html>
-<html lang="en" ng-app='phonecatApp'>
-<head>
+<html lang="en" ng-app='phonecatApp' ng-controller="PhoneListCtrl">
+<head >
 	<meta charset="utf-8">
-	<title>Google Phone Gallery</title>
+	<title ng-bind-template='Google Phone Gallery: {{query}}'>Google Phone Gallery</title>
 	<link rel="stylesheet" href="css/app.css">
 	<link rel="stylesheet" href="css/bootstrap.css">
 	<!--	  <link rel="stylesheet" href="css/todo.css">-->
@@ -10,20 +10,25 @@
 	<script src="js/controllers.js"></script>
 </head>
 
-<body ng-controller="PhoneListCtrl">
+<body >
 <div class='container-fluid'>
 	<div class='row-fluid'>
 		<div class='span2'>
 			<!--Sidebar Content-->
 
 			Search: <input ng-model='query'>
+			Sort by: <select ng-model='orderProp'>
+				<option value='name'>Alphabetical</option>
+				<option value="age">Newest</option>
+				<option value="-age">Oldest</option>
+			</select>
 
 		</div>
 		<div class='span10'>
 			<!--Body Content-->
 
 			<ul class='phones'>
-				<li ng-repeat='phone in phones | filter:query'>
+				<li ng-repeat='phone in phones | filter:query | orderBy:orderProp'>
 					{{phone.name}}
 					<p>{{phone.snippet}}</p>
 				</li>
